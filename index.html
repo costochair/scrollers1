@@ -165,6 +165,24 @@
     .redirect-link:hover {
       background-color: #4f545c;
     }
+
+    /* Video Modal Styles */
+    #video-modal video {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+      outline: none; /* Remove the default focus outline */
+    }
+
+    #video-modal .close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: #fff;
+      font-size: 30px;
+      cursor: pointer;
+      z-index: 1001; /* Ensure the close button is above the video */
+    }
   </style>
 </head>
 <body>
@@ -177,107 +195,116 @@
 
     <!-- Image Grid -->
     <div class="grid">
-      <div class="grid-item" onclick="openModal('/scrollers1/images/1.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/1.png" loading="lazy" alt="Image 1">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/2.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/2.png" loading="lazy" alt="Image 2">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/3.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/3.png" loading="lazy" alt="Image 3">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/4.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/4.png" loading="lazy" alt="Image 4">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/5.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/5.png" loading="lazy" alt="Image 5">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/6.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/6.png" loading="lazy" alt="Image 6">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/7.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/7.png" loading="lazy" alt="Image 7">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/8.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/8.png" loading="lazy" alt="Image 8">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/9.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/9.png" loading="lazy" alt="Image 9">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/10.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/10.png" loading="lazy" alt="Image 10">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/11.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/11.png" loading="lazy" alt="Image 11">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/12.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/12.png" loading="lazy" alt="Image 12">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/13.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/13.png" loading="lazy" alt="Image 13">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/14.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/14.png" loading="lazy" alt="Image 14">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/15.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/15.png" loading="lazy" alt="Image 15">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/16.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/16.png" loading="lazy" alt="Image 16">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/17.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/17.png" loading="lazy" alt="Image 17">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/18.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/18.png" loading="lazy" alt="Image 18">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/19.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/19.png" loading="lazy" alt="Image 19">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/20.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/20.png" loading="lazy" alt="Image 20">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/21.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/21.png" loading="lazy" alt="Image 21">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/22.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/22.png" loading="lazy" alt="Image 22">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/23.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/23.png" loading="lazy" alt="Image 23">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/24.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/24.png" loading="lazy" alt="Image 24">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/25.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/25.png" loading="lazy" alt="Image 25">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/26.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/26.png" loading="lazy" alt="Image 26">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/27.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/27.png" loading="lazy" alt="Image 27">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/28.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/28.png" loading="lazy" alt="Image 28">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/29.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/29.png" loading="lazy" alt="Image 29">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/30.png')">
+      <div class="grid-item">
         <img src="/scrollers1/images/30.png" loading="lazy" alt="Image 30">
       </div>
-      <div class="grid-item" onclick="openModal('/scrollers1/images/ScreenRecording_03-02-2025 13-35-02_1.mov')">
+      <div class="grid-item">
         <img src="/scrollers1/images/ScreenRecording_03-02-2025 13-35-02_1.mov" loading="lazy" alt="Video 1">
       </div>
     </div>
-    
 
-    <!-- Modal -->
+    <!-- Image Modal -->
     <div id="modal" class="modal" onclick="closeModal()">
       <span class="close">&times;</span>
       <img id="modal-img" src="" alt="Modal Image">
     </div>
+
+    <!-- Video Modal -->
+    <div id="video-modal" class="modal" onclick="closeVideoModal()">
+      <span class="close">&times;</span>
+      <video id="modal-video" controls>
+        <source src="" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
     <div class="redirect">
       <a href="/scrollersmpr/" class="redirect-link">Back to the Scrollers Archive Hub</a>
     </div>
@@ -302,6 +329,7 @@
   let startX, startY, offsetX = 0, offsetY = 0;
   let animationFrame;
 
+  // Function to open the image modal
   function openModal(src) {
     const modal = document.getElementById('modal');
     const modalImg = document.getElementById('modal-img');
@@ -323,6 +351,7 @@
     modal.addEventListener('touchend', handleTouchEnd);
   }
 
+  // Function to close the image modal
   function closeModal() {
     const modal = document.getElementById('modal');
     modal.style.display = 'none';
@@ -345,6 +374,25 @@
     }
   }
 
+  // Function to open the video modal
+  function openVideoModal(src) {
+    const videoModal = document.getElementById('video-modal');
+    const modalVideo = document.getElementById('modal-video');
+    videoModal.style.display = 'flex';
+    modalVideo.src = src;
+    modalVideo.play(); // Autoplay the video when the modal opens
+  }
+
+  // Function to close the video modal
+  function closeVideoModal() {
+    const videoModal = document.getElementById('video-modal');
+    const modalVideo = document.getElementById('modal-video');
+    videoModal.style.display = 'none';
+    modalVideo.pause(); // Pause the video when the modal closes
+    modalVideo.currentTime = 0; // Reset the video to the beginning
+  }
+
+  // Handle zooming for the image modal
   function handleZoom(event) {
     event.preventDefault();
     const modalImg = document.getElementById('modal-img');
@@ -363,6 +411,7 @@
     modalImg.style.transform = `scale(${scale}) translate(${offsetX}px, ${offsetY}px)`;
   }
 
+  // Handle dragging for the image modal
   function handleMouseDown(event) {
     if (scale > 1) {
       event.preventDefault();
@@ -426,6 +475,18 @@
   // Prevent the modal from closing when clicking on the image
   document.getElementById('modal-img').addEventListener('click', (event) => {
     event.stopPropagation(); // Stop the click event from bubbling up to the modal
+  });
+
+  // Add click handlers to grid items
+  document.querySelectorAll('.grid-item').forEach(item => {
+    item.addEventListener('click', function() {
+      const src = this.querySelector('img').src;
+      if (src.endsWith('.mov') || src.endsWith('.mp4')) {
+        openVideoModal(src); // Open video modal for video files
+      } else {
+        openModal(src); // Open image modal for image files
+      }
+    });
   });
 </script>
 
