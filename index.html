@@ -108,6 +108,7 @@
       transition: transform 0.25s ease;
       transform-origin: center center;
       cursor: grab; /* Indicate draggable */
+      user-select: none; /* Prevent text selection while dragging */
     }
 
     .modal img:active {
@@ -287,14 +288,14 @@
     modalImg.style.transform = `scale(${scale}) translate(0, 0)`;
 
     // Add event listeners for zooming and dragging
-    modalImg.addEventListener('wheel', handleZoom);
+    modal.addEventListener('wheel', handleZoom, { passive: false });
     modalImg.addEventListener('mousedown', handleMouseDown);
-    modalImg.addEventListener('mousemove', handleMouseMove);
-    modalImg.addEventListener('mouseup', handleMouseUp);
-    modalImg.addEventListener('mouseleave', handleMouseUp);
+    modal.addEventListener('mousemove', handleMouseMove);
+    modal.addEventListener('mouseup', handleMouseUp);
+    modal.addEventListener('mouseleave', handleMouseUp);
     modalImg.addEventListener('touchstart', handleTouchStart, { passive: false });
-    modalImg.addEventListener('touchmove', handleTouchMove, { passive: false });
-    modalImg.addEventListener('touchend', handleTouchEnd);
+    modal.addEventListener('touchmove', handleTouchMove, { passive: false });
+    modal.addEventListener('touchend', handleTouchEnd);
   }
 
   function closeModal() {
@@ -304,14 +305,14 @@
     modalImg.style.transform = 'scale(1) translate(0, 0)'; // Reset scale and position
 
     // Remove event listeners
-    modalImg.removeEventListener('wheel', handleZoom);
+    modal.removeEventListener('wheel', handleZoom);
     modalImg.removeEventListener('mousedown', handleMouseDown);
-    modalImg.removeEventListener('mousemove', handleMouseMove);
-    modalImg.removeEventListener('mouseup', handleMouseUp);
-    modalImg.removeEventListener('mouseleave', handleMouseUp);
+    modal.removeEventListener('mousemove', handleMouseMove);
+    modal.removeEventListener('mouseup', handleMouseUp);
+    modal.removeEventListener('mouseleave', handleMouseUp);
     modalImg.removeEventListener('touchstart', handleTouchStart);
-    modalImg.removeEventListener('touchmove', handleTouchMove);
-    modalImg.removeEventListener('touchend', handleTouchEnd);
+    modal.removeEventListener('touchmove', handleTouchMove);
+    modal.removeEventListener('touchend', handleTouchEnd);
   }
 
   function handleZoom(event) {
