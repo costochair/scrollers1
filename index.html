@@ -81,7 +81,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: cover; /* Ensures the image covers the square container */
       transition: transform 0.2s;
     }
     .grid-item img:hover {
@@ -235,15 +235,14 @@
       <div class="grid-item" onclick="openModal('/scrollers1/images/28.png')">
         <img src="/scrollers1/images/28.png" loading="lazy" alt="Image 28">
       </div>
-    </div>
       <div class="grid-item" onclick="openModal('/scrollers1/images/29.png')">
         <img src="/scrollers1/images/29.png" loading="lazy" alt="Image 29">
       </div>
-    </div>
       <div class="grid-item" onclick="openModal('/scrollers1/images/30.png')">
         <img src="/scrollers1/images/30.png" loading="lazy" alt="Image 30">
       </div>
     </div>
+
     <!-- Modal -->
     <div id="modal" class="modal" onclick="closeModal()">
       <span class="close">&times;</span>
