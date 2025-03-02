@@ -105,7 +105,7 @@
       max-width: 90%;
       max-height: 90%;
       border-radius: 8px;
-      transition: transform 0.25s ease;
+      transition: transform 0.2s ease-out; /* Smooth transition for scaling and dragging */
       transform-origin: center center;
       cursor: grab; /* Indicate draggable */
       user-select: none; /* Prevent text selection while dragging */
@@ -276,6 +276,7 @@
   let scale = 1;
   let isDragging = false;
   let startX, startY, offsetX = 0, offsetY = 0;
+  let animationFrame;
 
   function openModal(src) {
     const modal = document.getElementById('modal');
@@ -313,6 +314,11 @@
     modalImg.removeEventListener('touchstart', handleTouchStart);
     modal.removeEventListener('touchmove', handleTouchMove);
     modal.removeEventListener('touchend', handleTouchEnd);
+
+    // Cancel any pending animation frame
+    if (animationFrame) {
+      cancelAnimationFrame(animationFrame);
+    }
   }
 
   function handleZoom(event) {
@@ -345,16 +351,15 @@
   function handleMouseMove(event) {
     if (isDragging) {
       event.preventDefault();
-      const modalImg = document.getElementById('modal-img');
       offsetX = event.clientX - startX;
       offsetY = event.clientY - startY;
-      modalImg.style.transform = `scale(${scale}) translate(${offsetX}px, ${offsetY}px)`;
+      updateTransform();
     }
   }
 
   function handleMouseUp(event) {
     if (isDragging) {
-      event.preventDefault(); // Prevent the modal from closing
+      event.preventDefault();
       isDragging = false;
     }
   }
@@ -371,18 +376,27 @@
   function handleTouchMove(event) {
     if (isDragging && event.touches.length === 1) {
       event.preventDefault();
-      const modalImg = document.getElementById('modal-img');
       offsetX = event.touches[0].clientX - startX;
       offsetY = event.touches[0].clientY - startY;
-      modalImg.style.transform = `scale(${scale}) translate(${offsetX}px, ${offsetY}px)`;
+      updateTransform();
     }
   }
 
   function handleTouchEnd(event) {
     if (isDragging) {
-      event.preventDefault(); // Prevent the modal from closing
+      event.preventDefault();
       isDragging = false;
     }
+  }
+
+  function updateTransform() {
+    const modalImg = document.getElementById('modal-img');
+    if (animationFrame) {
+      cancelAnimationFrame(animationFrame);
+    }
+    animationFrame = requestAnimationFrame(() => {
+      modalImg.style.transform = `scale(${scale}) translate(${offsetX}px, ${offsetY}px)`;
+    });
   }
 
   // Prevent the modal from closing when clicking on the image
