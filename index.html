@@ -149,6 +149,22 @@
     .credits a:hover {
       text-decoration: underline;
     }
+    .redirect {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .redirect-link {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #40444b;
+      color: #00b0f4;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+    }
+    .redirect-link:hover {
+      background-color: #4f545c;
+    }
   </style>
 </head>
 <body>
@@ -258,7 +274,9 @@
       <span class="close">&times;</span>
       <img id="modal-img" src="" alt="Modal Image">
     </div>
-    
+    <div class="redirect">
+      <a href="/scrollersmpr/" class="redirect-link">Back to Home</a>
+    </div>
     <!-- Credits -->
     <div class="credits">
       <p>Thanks to:</p>
