@@ -352,8 +352,11 @@
     }
   }
 
-  function handleMouseUp() {
-    isDragging = false;
+  function handleMouseUp(event) {
+    if (isDragging) {
+      event.preventDefault(); // Prevent the modal from closing
+      isDragging = false;
+    }
   }
 
   function handleTouchStart(event) {
@@ -375,9 +378,17 @@
     }
   }
 
-  function handleTouchEnd() {
-    isDragging = false;
+  function handleTouchEnd(event) {
+    if (isDragging) {
+      event.preventDefault(); // Prevent the modal from closing
+      isDragging = false;
+    }
   }
+
+  // Prevent the modal from closing when clicking on the image
+  document.getElementById('modal-img').addEventListener('click', (event) => {
+    event.stopPropagation(); // Stop the click event from bubbling up to the modal
+  });
 </script>
 
   <!-- Register Service Worker -->
