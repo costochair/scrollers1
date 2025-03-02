@@ -1,0 +1,22 @@
+{
+  "short_name": "Scrollers Archive",
+  "name": "The Scrollers v1 Archive",
+  "description": "A comprehensive collection of Scrollers v1 material.",
+  "icons": [
+    {
+      "src": "/scrollers1/images/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/scrollers1/images/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/scrollers1/",
+  "background_color": "#36393f",
+  "display": "standalone",
+  "scope": "/scrollers1/",
+  "theme_color": "#36393f"
+}
