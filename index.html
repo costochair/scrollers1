@@ -75,16 +75,20 @@
       border-radius: 8px;
       cursor: pointer;
     }
-    .grid-item img {
+    .grid-item img,
+    .video-thumbnail {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover; /* Ensures the image covers the square container */
+      object-fit: cover; /* Ensures the image/video covers the square container */
+      border-radius: 8px;
+      cursor: pointer;
       transition: transform 0.2s;
     }
-    .grid-item img:hover {
+    .grid-item img:hover,
+    .video-thumbnail:hover {
       transform: scale(1.1);
     }
     .modal {
@@ -286,10 +290,16 @@
         <img src="/scrollers1/images/30.png" loading="lazy" alt="Image 30">
       </div>
       <div class="grid-item">
-        <img src="/scrollers1/images/ScreenRecording_03-02-2025 13-35-02_1.mov" loading="lazy" alt="Video 1">
+        <video class="video-thumbnail" poster="/scrollers1/images/thumb/1.jpg" loading="lazy">
+          <source src="/scrollers1/images/ScreenRecording_03-02-2025 13-35-02_1.mov" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
       </div>
       <div class="grid-item">
-        <img src="/scrollers1/images/RPReplay_Final1716089635.mp4" loading="lazy" alt="Video 2">
+        <video class="video-thumbnail" poster="/scrollers1/images/thumb/2.jpg" loading="lazy">
+          <source src="/scrollers1/images/RPReplay_Final1716089635.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
       </div>
     </div>
 
@@ -483,10 +493,14 @@
   // Add click handlers to grid items
   document.querySelectorAll('.grid-item').forEach(item => {
     item.addEventListener('click', function() {
-      const src = this.querySelector('img').src;
-      if (src.endsWith('.mov') || src.endsWith('.mp4')) {
+      const img = this.querySelector('img');
+      const video = this.querySelector('video');
+
+      if (video) {
+        const src = video.querySelector('source').src;
         openVideoModal(src); // Open video modal for video files
-      } else {
+      } else if (img) {
+        const src = img.src;
         openModal(src); // Open image modal for image files
       }
     });
