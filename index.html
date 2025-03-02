@@ -98,13 +98,20 @@
       justify-content: center;
       align-items: center;
       z-index: 1000;
+      overflow: hidden; /* Prevent scrolling when zoomed in */
     }
+
     .modal img {
       max-width: 90%;
       max-height: 90%;
       border-radius: 8px;
       transition: transform 0.25s ease;
       transform-origin: center center;
+      cursor: grab; /* Indicate draggable */
+    }
+
+    .modal img:active {
+      cursor: grabbing; /* Indicate dragging */
     }
     .close {
       position: absolute;
@@ -267,7 +274,7 @@
 <script>
   let scale = 1;
   let isDragging = false;
-  let startX, startY, scrollLeft, scrollTop;
+  let startX, startY, offsetX = 0, offsetY = 0;
 
   function openModal(src) {
     const modal = document.getElementById('modal');
@@ -275,10 +282,16 @@
     modal.style.display = 'flex';
     modalImg.src = src;
     scale = 1; // Reset scale when opening a new image
-    modalImg.style.transform = `scale(${scale})`;
+    offsetX = 0; // Reset offset
+    offsetY = 0; // Reset offset
+    modalImg.style.transform = `scale(${scale}) translate(0, 0)`;
 
-    // Add event listeners for zooming
+    // Add event listeners for zooming and dragging
     modalImg.addEventListener('wheel', handleZoom);
+    modalImg.addEventListener('mousedown', handleMouseDown);
+    modalImg.addEventListener('mousemove', handleMouseMove);
+    modalImg.addEventListener('mouseup', handleMouseUp);
+    modalImg.addEventListener('mouseleave', handleMouseUp);
     modalImg.addEventListener('touchstart', handleTouchStart, { passive: false });
     modalImg.addEventListener('touchmove', handleTouchMove, { passive: false });
     modalImg.addEventListener('touchend', handleTouchEnd);
@@ -288,10 +301,14 @@
     const modal = document.getElementById('modal');
     modal.style.display = 'none';
     const modalImg = document.getElementById('modal-img');
-    modalImg.style.transform = 'scale(1)'; // Reset scale when closing the modal
+    modalImg.style.transform = 'scale(1) translate(0, 0)'; // Reset scale and position
 
     // Remove event listeners
     modalImg.removeEventListener('wheel', handleZoom);
+    modalImg.removeEventListener('mousedown', handleMouseDown);
+    modalImg.removeEventListener('mousemove', handleMouseMove);
+    modalImg.removeEventListener('mouseup', handleMouseUp);
+    modalImg.removeEventListener('mouseleave', handleMouseUp);
     modalImg.removeEventListener('touchstart', handleTouchStart);
     modalImg.removeEventListener('touchmove', handleTouchMove);
     modalImg.removeEventListener('touchend', handleTouchEnd);
@@ -312,34 +329,48 @@
     // Limit the scale to avoid too much zoom in/out
     scale = Math.min(Math.max(0.5, scale), 3);
 
-    modalImg.style.transform = `scale(${scale})`;
+    modalImg.style.transform = `scale(${scale}) translate(${offsetX}px, ${offsetY}px)`;
+  }
+
+  function handleMouseDown(event) {
+    if (scale > 1) {
+      event.preventDefault();
+      isDragging = true;
+      startX = event.clientX - offsetX;
+      startY = event.clientY - offsetY;
+    }
+  }
+
+  function handleMouseMove(event) {
+    if (isDragging) {
+      event.preventDefault();
+      const modalImg = document.getElementById('modal-img');
+      offsetX = event.clientX - startX;
+      offsetY = event.clientY - startY;
+      modalImg.style.transform = `scale(${scale}) translate(${offsetX}px, ${offsetY}px)`;
+    }
+  }
+
+  function handleMouseUp() {
+    isDragging = false;
   }
 
   function handleTouchStart(event) {
-    if (event.touches.length === 2) {
+    if (event.touches.length === 1 && scale > 1) {
       event.preventDefault();
       isDragging = true;
-      startX = (event.touches[0].pageX + event.touches[1].pageX) / 2;
-      startY = (event.touches[0].pageY + event.touches[1].pageY) / 2;
+      startX = event.touches[0].clientX - offsetX;
+      startY = event.touches[0].clientY - offsetY;
     }
   }
 
   function handleTouchMove(event) {
-    if (event.touches.length === 2 && isDragging) {
+    if (isDragging && event.touches.length === 1) {
       event.preventDefault();
       const modalImg = document.getElementById('modal-img');
-
-      const currentX = (event.touches[0].pageX + event.touches[1].pageX) / 2;
-      const currentY = (event.touches[0].pageY + event.touches[1].pageY) / 2;
-
-      const deltaX = currentX - startX;
-      const deltaY = currentY - startY;
-
-      modalImg.scrollLeft -= deltaX;
-      modalImg.scrollTop -= deltaY;
-
-      startX = currentX;
-      startY = currentY;
+      offsetX = event.touches[0].clientX - startX;
+      offsetY = event.touches[0].clientY - startY;
+      modalImg.style.transform = `scale(${scale}) translate(${offsetX}px, ${offsetY}px)`;
     }
   }
 
