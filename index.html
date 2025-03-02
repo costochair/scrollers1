@@ -38,7 +38,7 @@
       padding: 20px;
     }
     .container {
-      max-width: 800px;
+      max-width: 1200px;
       margin: 0 auto;
     }
     .header {
@@ -58,69 +58,83 @@
       color: #fff;
       margin: 0;
     }
-    .section {
-      background-color: #2f3136;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      padding: 15px;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
     }
-    .section-title {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 10px;
+    .grid-item {
+      position: relative;
+      width: 100%;
+      padding-top: 100%; /* This makes the item a square */
+      overflow: hidden;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .grid-item img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.2s;
+    }
+    .grid-item img:hover {
+      transform: scale(1.1);
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+    }
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
       color: #fff;
-    }
-    .image-container {
-      text-align: center;
-    }
-    .image-container img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 8px;
-    }
-    .redirect {
-      text-align: center;
-      margin-top: 20px;
-    }
-    .redirect-link {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #40444b;
-      color: #00b0f4;
-      text-decoration: none;
-      border-radius: 4px;
-      transition: background-color 0.2s;
-    }
-    .redirect-link:hover {
-      background-color: #4f545c;
+      font-size: 30px;
+      cursor: pointer;
     }
     .credits {
-       text-align: center;
-       font-size: 14px; 
-       color: #888; 
-       margin-top: 40px; 
-       padding: 10px;
-       border-top: 1px solid #444; 
-     }
+      text-align: center;
+      font-size: 14px;
+      color: #888;
+      margin-top: 40px;
+      padding: 10px;
+      border-top: 1px solid #444;
+    }
     .credits p {
-       margin: 0 0 10px 0;
-       font-weight: bold;
+      margin: 0 0 10px 0;
+      font-weight: bold;
     }
     .credits ul {
-       list-style-type: none;
-       padding: 0;
-       margin: 0;
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
     }
-     .credits li {
-       margin: 5px 0; 
-     }
-     .credits a {
-       color: #888;
-       text-decoration: none; 
-     }
-     .credits a:hover {
-       text-decoration: underline; 
-     }
+    .credits li {
+      margin: 5px 0;
+    }
+    .credits a {
+      color: #888;
+      text-decoration: none;
+    }
+    .credits a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -131,220 +145,127 @@
       <h1>Scrollers v1 Archive</h1>
     </div>
 
-    <!-- Image Sections -->
-    <div class="section">
-      <div class="section-title">Image 1</div>
-      <div class="image-container">
+    <!-- Image Grid -->
+    <div class="grid">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/1.png')">
         <img src="/scrollers1/images/1.png" loading="lazy" alt="Image 1">
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Image 2</div>
-      <div class="image-container">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/2.png')">
         <img src="/scrollers1/images/2.png" loading="lazy" alt="Image 2">
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Image 3</div>
-      <div class="image-container">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/3.png')">
         <img src="/scrollers1/images/3.png" loading="lazy" alt="Image 3">
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Image 4</div>
-      <div class="image-container">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/4.png')">
         <img src="/scrollers1/images/4.png" loading="lazy" alt="Image 4">
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Image 5</div>
-      <div class="image-container">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/5.png')">
         <img src="/scrollers1/images/5.png" loading="lazy" alt="Image 5">
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Image 6</div>
-      <div class="image-container">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/6.png')">
         <img src="/scrollers1/images/6.png" loading="lazy" alt="Image 6">
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Image 7</div>
-      <div class="image-container">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/7.png')">
         <img src="/scrollers1/images/7.png" loading="lazy" alt="Image 7">
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Image 8</div>
-      <div class="image-container">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/8.png')">
         <img src="/scrollers1/images/8.png" loading="lazy" alt="Image 8">
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Image 9</div>
-      <div class="image-container">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/9.png')">
         <img src="/scrollers1/images/9.png" loading="lazy" alt="Image 9">
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Image 10</div>
-      <div class="image-container">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/10.png')">
         <img src="/scrollers1/images/10.png" loading="lazy" alt="Image 10">
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Image 11</div>
-      <div class="image-container">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/11.png')">
         <img src="/scrollers1/images/11.png" loading="lazy" alt="Image 11">
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Image 12</div>
-      <div class="image-container">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/12.png')">
         <img src="/scrollers1/images/12.png" loading="lazy" alt="Image 12">
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Image 13</div>
-      <div class="image-container">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/13.png')">
         <img src="/scrollers1/images/13.png" loading="lazy" alt="Image 13">
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Image 14</div>
-      <div class="image-container">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/14.png')">
         <img src="/scrollers1/images/14.png" loading="lazy" alt="Image 14">
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Image 15</div>
-      <div class="image-container">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/15.png')">
         <img src="/scrollers1/images/15.png" loading="lazy" alt="Image 15">
       </div>
-    </div>
-
-
-    <div class="section">
-      <div class="section-title">Image 16</div>
-      <div class="image-container">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/16.png')">
         <img src="/scrollers1/images/16.png" loading="lazy" alt="Image 16">
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Image 17</div>
-      <div class="image-container">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/17.png')">
         <img src="/scrollers1/images/17.png" loading="lazy" alt="Image 17">
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Image 18</div>
-      <div class="image-container">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/18.png')">
         <img src="/scrollers1/images/18.png" loading="lazy" alt="Image 18">
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Image 19</div>
-      <div class="image-container">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/19.png')">
         <img src="/scrollers1/images/19.png" loading="lazy" alt="Image 19">
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Image 20</div>
-      <div class="image-container">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/20.png')">
         <img src="/scrollers1/images/20.png" loading="lazy" alt="Image 20">
       </div>
-    </div>
-
-    
-    <div class="section">
-      <div class="section-title">Image 21</div>
-      <div class="image-container">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/21.png')">
         <img src="/scrollers1/images/21.png" loading="lazy" alt="Image 21">
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Image 22</div>
-      <div class="image-container">
-        <img src="/scrollers1/images/22.png" loading="lazy" alt="Image 17">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/22.png')">
+        <img src="/scrollers1/images/22.png" loading="lazy" alt="Image 22">
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Image 23</div>
-      <div class="image-container">
-        <img src="/scrollers1/images/23.png" loading="lazy" alt="Image 18">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/23.png')">
+        <img src="/scrollers1/images/23.png" loading="lazy" alt="Image 23">
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Image 24</div>
-      <div class="image-container">
-        <img src="/scrollers1/images/24.png" loading="lazy" alt="Image 19">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/24.png')">
+        <img src="/scrollers1/images/24.png" loading="lazy" alt="Image 24">
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Image 25</div>
-      <div class="image-container">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/25.png')">
         <img src="/scrollers1/images/25.png" loading="lazy" alt="Image 25">
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">Image 26</div>
-      <div class="image-container">
-        <img src="/scrollers1/images/26.png" loading="lazy" alt="Image 19">
+      <div class="grid-item" onclick="openModal('/scrollers1/images/26.png')">
+        <img src="/scrollers1/images/26.png" loading="lazy" alt="Image 26">
+      </div>
+      <div class="grid-item" onclick="openModal('/scrollers1/images/27.png')">
+        <img src="/scrollers1/images/27.png" loading="lazy" alt="Image 27">
+      </div>
+      <div class="grid-item" onclick="openModal('/scrollers1/images/28.png')">
+        <img src="/scrollers1/images/28.png" loading="lazy" alt="Image 28">
       </div>
     </div>
 
-    <div class="section">
-      <div class="section-title">Image 27</div>
-      <div class="image-container">
-        <img src="/scrollers1/images/27.png" loading="lazy" alt="Image 25">
-      </div>
+    <!-- Modal -->
+    <div id="modal" class="modal" onclick="closeModal()">
+      <span class="close">&times;</span>
+      <img id="modal-img" src="" alt="Modal Image">
     </div>
 
-    <div class="section">
-      <div class="section-title">Image 28</div>
-      <div class="image-container">
-        <img src="/scrollers1/images/28.png" loading="lazy" alt="Image 25">
-      </div>
-    </div>
-    
-    <!-- Redirect Link -->
-    <div class="redirect">
-      <a href="/scrollers1/" class="redirect-link">Back to Top</a>
+    <!-- Credits -->
+    <div class="credits">
+      <p>Thanks to:</p>
+      <ul>
+        <li>Mucho - Contributed to images</li>
+        <li>Costco - Creating the site</li>
+        <li>Yung Zay - Self explanatory</li>
+        <li><a href="https://costochair.github.io/scrollers/thanks.html">The Scrollers Community</a></li>
+      </ul>
     </div>
   </div>
 
-   <div class="credits">
-     <p>Thanks to:</p>
-       <ul>
-         <li>Mucho - Contributed to images</li>
-         <li>Costco - Creating the site</li>
-         <li>Yung Zay - Self explanatory</li>
-         <li><a href="https://costochair.github.io/scrollers/thanks.html">The Scrollers Community</a></li>
-       </ul>
-   </div>
+  <!-- JavaScript -->
+  <script>
+    function openModal(src) {
+      const modal = document.getElementById('modal');
+      const modalImg = document.getElementById('modal-img');
+      modal.style.display = 'flex';
+      modalImg.src = src;
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('modal');
+      modal.style.display = 'none';
+    }
+  </script>
+
   <!-- Register Service Worker -->
   <script>
     if ('serviceWorker' in navigator) {
