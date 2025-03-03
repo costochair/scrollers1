@@ -62,6 +62,34 @@
       color: #fff;
       margin: 0;
     }
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .legend-icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px; /* Rounded square */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+    }
+    .legend-icon.photo {
+      background-color: #4CAF50; /* Green for photos */
+    }
+    .legend-icon.video {
+      background-color: #2196F3; /* Blue for videos */
+    }
     .grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -90,6 +118,27 @@
     .grid-item img:hover,
     .video-thumbnail:hover {
       transform: scale(1.1);
+    }
+    .icon {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      width: 20px;
+      height: 20px;
+      border-radius: 4px; /* Rounded square */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+      z-index: 2;
+    }
+    .icon.photo {
+      background-color: #4CAF50; /* Green for photos */
+    }
+    .icon.video {
+      background-color: #2196F3; /* Blue for videos */
     }
     .modal {
       display: none;
@@ -195,6 +244,18 @@
     <div class="header">
       <img src="/scrollers1/images/icnos.jpg" alt="Logo" class="header-logo">
       <h1>Scrollers v1 Archive</h1>
+    </div>
+
+    <!-- Legend -->
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-icon photo">P</div>
+        <span>Photo</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-icon video">V</div>
+        <span>Video</span>
+      </div>
     </div>
 
     <!-- Image Grid -->
@@ -777,176 +838,204 @@
   </div>
 
   <!-- JavaScript -->
-<script>
-  let scale = 1;
-  let isDragging = false;
-  let startX, startY, offsetX = 0, offsetY = 0;
-  let animationFrame;
+  <script>
+    // Function to detect and add icons to grid items
+    function addIconsToGridItems() {
+      const gridItems = document.querySelectorAll('.grid-item');
 
-  // Function to open the image modal
-  function openModal(src) {
-    const modal = document.getElementById('modal');
-    const modalImg = document.getElementById('modal-img');
-    modal.style.display = 'flex';
-    modalImg.src = src;
-    scale = 1; // Reset scale when opening a new image
-    offsetX = 0; // Reset offset
-    offsetY = 0; // Reset offset
-    modalImg.style.transform = `scale(${scale}) translate(0, 0)`;
+      gridItems.forEach(item => {
+        const img = item.querySelector('img');
+        const video = item.querySelector('video');
 
-    // Add event listeners for zooming and dragging
-    modal.addEventListener('wheel', handleZoom, { passive: false });
-    modalImg.addEventListener('mousedown', handleMouseDown);
-    modal.addEventListener('mousemove', handleMouseMove);
-    modal.addEventListener('mouseup', handleMouseUp);
-    modal.addEventListener('mouseleave', handleMouseUp);
-    modalImg.addEventListener('touchstart', handleTouchStart, { passive: false });
-    modal.addEventListener('touchmove', handleTouchMove, { passive: false });
-    modal.addEventListener('touchend', handleTouchEnd);
-  }
-
-  // Function to close the image modal
-  function closeModal() {
-    const modal = document.getElementById('modal');
-    modal.style.display = 'none';
-    const modalImg = document.getElementById('modal-img');
-    modalImg.style.transform = 'scale(1) translate(0, 0)'; // Reset scale and position
-
-    // Remove event listeners
-    modal.removeEventListener('wheel', handleZoom);
-    modalImg.removeEventListener('mousedown', handleMouseDown);
-    modal.removeEventListener('mousemove', handleMouseMove);
-    modal.removeEventListener('mouseup', handleMouseUp);
-    modal.removeEventListener('mouseleave', handleMouseUp);
-    modalImg.removeEventListener('touchstart', handleTouchStart);
-    modal.removeEventListener('touchmove', handleTouchMove);
-    modal.removeEventListener('touchend', handleTouchEnd);
-
-    // Cancel any pending animation frame
-    if (animationFrame) {
-      cancelAnimationFrame(animationFrame);
-    }
-  }
-
-  // Function to open the video modal
-  function openVideoModal(src) {
-    const videoModal = document.getElementById('video-modal');
-    const modalVideo = document.getElementById('modal-video');
-    videoModal.style.display = 'flex';
-    modalVideo.src = src;
-    modalVideo.play(); // Autoplay the video when the modal opens
-  }
-
-  // Function to close the video modal
-  function closeVideoModal() {
-    const videoModal = document.getElementById('video-modal');
-    const modalVideo = document.getElementById('modal-video');
-    videoModal.style.display = 'none';
-    modalVideo.pause(); // Pause the video when the modal closes
-    modalVideo.currentTime = 0; // Reset the video to the beginning
-  }
-
-  // Handle zooming for the image modal
-  function handleZoom(event) {
-    event.preventDefault();
-    const modalImg = document.getElementById('modal-img');
-
-    if (event.deltaY < 0) {
-      // Zoom in
-      scale += 0.1;
-    } else {
-      // Zoom out
-      scale -= 0.1;
+        if (img) {
+          // Add photo icon
+          const icon = document.createElement('div');
+          icon.classList.add('icon', 'photo');
+          icon.textContent = 'P';
+          item.appendChild(icon);
+        } else if (video) {
+          // Add video icon
+          const icon = document.createElement('div');
+          icon.classList.add('icon', 'video');
+          icon.textContent = 'V';
+          item.appendChild(icon);
+        }
+      });
     }
 
-    // Limit the scale to avoid too much zoom in/out
-    scale = Math.min(Math.max(0.5, scale), 3);
+    // Call the function to add icons
+    addIconsToGridItems();
 
-    modalImg.style.transform = `scale(${scale}) translate(${offsetX}px, ${offsetY}px)`;
-  }
+    // Rest of your JavaScript code for modals and interactions
+    let scale = 1;
+    let isDragging = false;
+    let startX, startY, offsetX = 0, offsetY = 0;
+    let animationFrame;
 
-  // Handle dragging for the image modal
-  function handleMouseDown(event) {
-    if (scale > 1) {
-      event.preventDefault();
-      isDragging = true;
-      startX = event.clientX - offsetX;
-      startY = event.clientY - offsetY;
+    // Function to open the image modal
+    function openModal(src) {
+      const modal = document.getElementById('modal');
+      const modalImg = document.getElementById('modal-img');
+      modal.style.display = 'flex';
+      modalImg.src = src;
+      scale = 1; // Reset scale when opening a new image
+      offsetX = 0; // Reset offset
+      offsetY = 0; // Reset offset
+      modalImg.style.transform = `scale(${scale}) translate(0, 0)`;
+
+      // Add event listeners for zooming and dragging
+      modal.addEventListener('wheel', handleZoom, { passive: false });
+      modalImg.addEventListener('mousedown', handleMouseDown);
+      modal.addEventListener('mousemove', handleMouseMove);
+      modal.addEventListener('mouseup', handleMouseUp);
+      modal.addEventListener('mouseleave', handleMouseUp);
+      modalImg.addEventListener('touchstart', handleTouchStart, { passive: false });
+      modal.addEventListener('touchmove', handleTouchMove, { passive: false });
+      modal.addEventListener('touchend', handleTouchEnd);
     }
-  }
 
-  function handleMouseMove(event) {
-    if (isDragging) {
-      event.preventDefault();
-      offsetX = event.clientX - startX;
-      offsetY = event.clientY - startY;
-      updateTransform();
-    }
-  }
+    // Function to close the image modal
+    function closeModal() {
+      const modal = document.getElementById('modal');
+      modal.style.display = 'none';
+      const modalImg = document.getElementById('modal-img');
+      modalImg.style.transform = 'scale(1) translate(0, 0)'; // Reset scale and position
 
-  function handleMouseUp(event) {
-    if (isDragging) {
-      event.preventDefault();
-      isDragging = false;
-    }
-  }
+      // Remove event listeners
+      modal.removeEventListener('wheel', handleZoom);
+      modalImg.removeEventListener('mousedown', handleMouseDown);
+      modal.removeEventListener('mousemove', handleMouseMove);
+      modal.removeEventListener('mouseup', handleMouseUp);
+      modal.removeEventListener('mouseleave', handleMouseUp);
+      modalImg.removeEventListener('touchstart', handleTouchStart);
+      modal.removeEventListener('touchmove', handleTouchMove);
+      modal.removeEventListener('touchend', handleTouchEnd);
 
-  function handleTouchStart(event) {
-    if (event.touches.length === 1 && scale > 1) {
-      event.preventDefault();
-      isDragging = true;
-      startX = event.touches[0].clientX - offsetX;
-      startY = event.touches[0].clientY - offsetY;
-    }
-  }
-
-  function handleTouchMove(event) {
-    if (isDragging && event.touches.length === 1) {
-      event.preventDefault();
-      offsetX = event.touches[0].clientX - startX;
-      offsetY = event.touches[0].clientY - startY;
-      updateTransform();
-    }
-  }
-
-  function handleTouchEnd(event) {
-    if (isDragging) {
-      event.preventDefault();
-      isDragging = false;
-    }
-  }
-
-  function updateTransform() {
-    const modalImg = document.getElementById('modal-img');
-    if (animationFrame) {
-      cancelAnimationFrame(animationFrame);
-    }
-    animationFrame = requestAnimationFrame(() => {
-      modalImg.style.transform = `scale(${scale}) translate(${offsetX}px, ${offsetY}px)`;
-    });
-  }
-
-  // Prevent the modal from closing when clicking on the image
-  document.getElementById('modal-img').addEventListener('click', (event) => {
-    event.stopPropagation(); // Stop the click event from bubbling up to the modal
-  });
-
-  // Add click handlers to grid items
-  document.querySelectorAll('.grid-item').forEach(item => {
-    item.addEventListener('click', function() {
-      const img = this.querySelector('img');
-      const video = this.querySelector('video');
-
-      if (video) {
-        const src = video.querySelector('source').src;
-        openVideoModal(src); // Open video modal for video files
-      } else if (img) {
-        const src = img.src;
-        openModal(src); // Open image modal for image files
+      // Cancel any pending animation frame
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
       }
+    }
+
+    // Function to open the video modal
+    function openVideoModal(src) {
+      const videoModal = document.getElementById('video-modal');
+      const modalVideo = document.getElementById('modal-video');
+      videoModal.style.display = 'flex';
+      modalVideo.src = src;
+      modalVideo.play(); // Autoplay the video when the modal opens
+    }
+
+    // Function to close the video modal
+    function closeVideoModal() {
+      const videoModal = document.getElementById('video-modal');
+      const modalVideo = document.getElementById('modal-video');
+      videoModal.style.display = 'none';
+      modalVideo.pause(); // Pause the video when the modal closes
+      modalVideo.currentTime = 0; // Reset the video to the beginning
+    }
+
+    // Handle zooming for the image modal
+    function handleZoom(event) {
+      event.preventDefault();
+      const modalImg = document.getElementById('modal-img');
+
+      if (event.deltaY < 0) {
+        // Zoom in
+        scale += 0.1;
+      } else {
+        // Zoom out
+        scale -= 0.1;
+      }
+
+      // Limit the scale to avoid too much zoom in/out
+      scale = Math.min(Math.max(0.5, scale), 3);
+
+      modalImg.style.transform = `scale(${scale}) translate(${offsetX}px, ${offsetY}px)`;
+    }
+
+    // Handle dragging for the image modal
+    function handleMouseDown(event) {
+      if (scale > 1) {
+        event.preventDefault();
+        isDragging = true;
+        startX = event.clientX - offsetX;
+        startY = event.clientY - offsetY;
+      }
+    }
+
+    function handleMouseMove(event) {
+      if (isDragging) {
+        event.preventDefault();
+        offsetX = event.clientX - startX;
+        offsetY = event.clientY - startY;
+        updateTransform();
+      }
+    }
+
+    function handleMouseUp(event) {
+      if (isDragging) {
+        event.preventDefault();
+        isDragging = false;
+      }
+    }
+
+    function handleTouchStart(event) {
+      if (event.touches.length === 1 && scale > 1) {
+        event.preventDefault();
+        isDragging = true;
+        startX = event.touches[0].clientX - offsetX;
+        startY = event.touches[0].clientY - offsetY;
+      }
+    }
+
+    function handleTouchMove(event) {
+      if (isDragging && event.touches.length === 1) {
+        event.preventDefault();
+        offsetX = event.touches[0].clientX - startX;
+        offsetY = event.touches[0].clientY - startY;
+        updateTransform();
+      }
+    }
+
+    function handleTouchEnd(event) {
+      if (isDragging) {
+        event.preventDefault();
+        isDragging = false;
+      }
+    }
+
+    function updateTransform() {
+      const modalImg = document.getElementById('modal-img');
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+      animationFrame = requestAnimationFrame(() => {
+        modalImg.style.transform = `scale(${scale}) translate(${offsetX}px, ${offsetY}px)`;
+      });
+    }
+
+    // Prevent the modal from closing when clicking on the image
+    document.getElementById('modal-img').addEventListener('click', (event) => {
+      event.stopPropagation(); // Stop the click event from bubbling up to the modal
     });
-  });
-</script>
+
+    // Add click handlers to grid items
+    document.querySelectorAll('.grid-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const img = this.querySelector('img');
+        const video = this.querySelector('video');
+
+        if (video) {
+          const src = video.querySelector('source').src;
+          openVideoModal(src); // Open video modal for video files
+        } else if (img) {
+          const src = img.src;
+          openModal(src); // Open image modal for image files
+        }
+      });
+    });
+  </script>
 
   <!-- Register Service Worker -->
   <script>
