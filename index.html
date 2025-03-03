@@ -218,7 +218,6 @@
     .redirect-link:hover {
       background-color: #4f545c;
     }
-
     /* Video Modal Styles */
     #video-modal video {
       max-width: 90%;
@@ -226,7 +225,17 @@
       border-radius: 8px;
       outline: none; /* Remove the default focus outline */
     }
-
+    .counter {
+      text-align: center;
+      font-size: 16px;
+      color: #dcddde;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    .counter span {
+      font-weight: bold;
+      color: #fff;
+    }
     #video-modal .close {
       position: absolute;
       top: 20px;
@@ -823,7 +832,13 @@
         Your browser does not support the video tag.
       </video>
     </div>
-
+    
+    <div class="counter">
+      <span id="image-count">0</span> images, 
+      <span id="video-count">0</span> videos, 
+      <span id="total-count">0</span> total
+    </div>
+    
     <div class="redirect">
       <a href="/scrollersmpr/" class="redirect-link">Back to the Scrollers Archive Hub</a>
     </div>
@@ -870,6 +885,21 @@
 
     // Call the function to add icons
     addIconsToGridItems();
+    
+    // Add the counter function
+    function updateCounter() {
+      const images = document.querySelectorAll('.grid-item img').length;
+      const videos = document.querySelectorAll('.grid-item video').length;
+      const total = images + videos;
+
+      // Update the counter
+      document.getElementById('image-count').textContent = images;
+      document.getElementById('video-count').textContent = videos;
+      document.getElementById('total-count').textContent = total;
+    }
+
+    // Call the function to update the counter when the page loads
+    updateCounter();
 
     // Rest of your JavaScript code for modals and interactions
     let scale = 1;
